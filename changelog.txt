@@ -1,0 +1,17 @@
+## V0.7.2.3.3
+
+- added support for bootstrap 3 & 4 with new parameter: ppss_auth.bootstrapversion. 
+
+
+## V0.7.2.3.3
+
+- fixed unicode error in python 3
+
+## V0.7.2
+
+- Fixed issue with "ppss_auth.post_login_follow"
+
+
+## V0.6.1
+
+- Added search functionality
