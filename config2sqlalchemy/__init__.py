@@ -7,6 +7,7 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
+    Unicode,
     ForeignKey,
 )
 
@@ -82,7 +83,7 @@ def CreateColumnDefinitions(element):
     if c[1]=="integer":
       coltype = Integer
     elif c[1] == "string":
-      coltype = Text
+      coltype = Unicode(512)
     else:
       raise Exception ("unknown col type: {} (col:{})".format(c[1],c))
     if len(c)>=3:
