@@ -61,7 +61,7 @@ def createClass(name,baseclass=object):
   return Foo
 
 def createMultiInheritClass(name = "Foo",baseclasses = (),props = {} ):
-  newclass= type(name,baseclasses,props)
+  newclass= type(str(name),baseclasses,props)
   return newclass
 
 def createMethod(mylambda):
@@ -92,7 +92,7 @@ def CreateColumnDefinitions(element):
       if "fk" in c[3]:
         args.append(ForeignKey(".".join(c[3]["fk"] ) )  )
       pass
-    l.debug( element["name"],c[0],coltype,pk )
+    l.debug("{} {} {} {}".format( element["name"],c[0],coltype,pk) )
     attrs[c[0]] = Column(coltype, *args, primary_key = pk,nullable = nullable)
   return attrs
 
