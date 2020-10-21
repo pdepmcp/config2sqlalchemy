@@ -7,6 +7,7 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
+    Unicode,
     ForeignKey,
 )
 
@@ -79,20 +80,25 @@ def CreateColumnDefinitions(element):
     pk = False
     nullable = True
     coltype = None
-    if c[1]=="integer":
-      coltype = Integer
-    elif c[1] == "string":
-      coltype = Text
-    else:
-      raise Exception ("unknown col type: {} (col:{})".format(c[1],c))
+    fieldlen = 512
     if len(c)>=3:
       pk = "pk" in c[2]
       nullable = not(pk or "notnull" in c[2])
+      if 'fieldlen' in c[2]:
+        fieldlen = int(c[2]['fieldlen'])
     if len(c)==4:
       if "fk" in c[3]:
         args.append(ForeignKey(".".join(c[3]["fk"] ) )  )
       pass
-    l.debug("{} {} {} {}".format( element["name"],c[0],coltype,pk) )
+    if c[1]=="integer":
+      coltype = Integer
+    elif c[1] == "string":
+      coltype = Unicode(fieldlen)
+    else:
+      raise Exception ("unknown col type: {} (col:{})".format(c[1],c))
+    
+    l.debug("{} {} {} {}".format( element["name"],c[0],coltype,pk) )    
+
     attrs[c[0]] = Column(coltype, *args, primary_key = pk,nullable = nullable)
   return attrs
 
